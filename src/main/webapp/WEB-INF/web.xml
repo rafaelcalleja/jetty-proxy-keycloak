@@ -5,35 +5,48 @@
    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
    metadata-complete="false"
    version="3.0">
- 
-  <servlet>
-    <servlet-name>Hello</servlet-name>
-    <servlet-class>org.example.HelloServlet</servlet-class>
-  </servlet>
 
-  <servlet-mapping>
-    <servlet-name>Hello</servlet-name>
-    <url-pattern>/hello/*</url-pattern>
-  </servlet-mapping>
+  <display-name>Transparent Proxy WebApp</display-name>
 
   <servlet>
-    <servlet-name>GoogleProxy</servlet-name>
+    <servlet-name>TransparentProxy</servlet-name>
     <servlet-class>org.eclipse.jetty.proxy.ProxyServlet$Transparent</servlet-class>
     <load-on-startup>1</load-on-startup>
     <async-supported>true</async-supported>
     <init-param>
-      <param-name>proxyTo</param-name>
-      <param-value>http://vmprod2:7890/</param-value>
+      <param-name>hostHeader</param-name>
+      <param-value>vault-jx.dokify.net</param-value>
     </init-param>
     <init-param>
-      <param-name>prefix</param-name>
-      <param-value>/tilestache</param-value>
+      <param-name>proxyTo</param-name>
+      <param-value>https://vault-jx.dokify.net/</param-value>
     </init-param>
   </servlet>
    
   <servlet-mapping>
-    <servlet-name>GoogleProxy</servlet-name>
-    <url-pattern>/tilestache/*</url-pattern>
+    <servlet-name>TransparentProxy</servlet-name>
+    <url-pattern>/*</url-pattern>
   </servlet-mapping>
+
+  <security-constraint>
+    <web-resource-collection>
+      <url-pattern>/*</url-pattern>
+    </web-resource-collection>
+    <!--        <user-data-constraint>
+                <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+            </user-data-constraint>  -->
+    <auth-constraint>
+      <role-name>user</role-name>
+    </auth-constraint>
+  </security-constraint>
+
+  <login-config>
+    <auth-method>KEYCLOAK</auth-method>
+    <realm-name>basic-auth</realm-name>
+  </login-config>
+
+  <security-role>
+    <role-name>user</role-name>
+  </security-role>
  
 </web-app>

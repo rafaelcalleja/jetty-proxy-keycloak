@@ -1,0 +1,10 @@
+{
+  "realm": "master",
+  "auth-server-url": "http://localhost:8081/auth/",
+  "ssl-required": "external",
+  "resource": "basic-auth-service",
+  "enable-basic-auth" : "true",
+  "credentials": {
+    "secret": "password"
+  }
+}

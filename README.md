@@ -1,4 +1,4 @@
-jetty-proxy
+Jetty Proxy Transparent + KeyCloak Security
 ===========
 
-An example of Jetty's ProxyServlet configuration
+Jetty Proxy Transparent + KeyCloak Security
