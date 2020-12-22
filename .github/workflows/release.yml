@@ -28,6 +28,12 @@ jobs:
         run: make test
       - name: Docker Push
         run: make push
+      - name: Create Output Version
+        id: release
+        run: |
+          export VERSION=$(cat VERSION)
+          echo ::debug ::relase version ${VERSION}
+          echo ::set-output name=tag_name::v${VERSION}
       - name: Update version
         id: updatev
         run: |
@@ -42,9 +48,9 @@ jobs:
                --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
                --header 'content-type: application/json' \
                --data '{
-                   "tag_name": "v$(cat VERSION)",
-                   "body": "docker pull rafaelcalleja/jetty-proxy-keycloak:v$(cat VERSION)",
-                   "name": "Release v$(cat VERSION)",
+                   "tag_name": "${{ steps.release.outputs.tag_name }}",
+                   "body": "docker pull rafaelcalleja/jetty-proxy-keycloak:${{ steps.release.outputs.tag_name }}",
+                   "name": "Release ${{ steps.release.outputs.tag_name }}",
                    "draft": false,
                    "prerelease": false
                }'
