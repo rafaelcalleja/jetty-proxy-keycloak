@@ -8,26 +8,6 @@
 
   <display-name>Transparent Proxy WebApp</display-name>
 
-  <servlet>
-    <servlet-name>TransparentProxy</servlet-name>
-    <servlet-class>org.eclipse.jetty.proxy.ProxyServlet$Transparent</servlet-class>
-    <load-on-startup>1</load-on-startup>
-    <async-supported>true</async-supported>
-    <init-param>
-      <param-name>hostHeader</param-name>
-      <param-value>${HOST_HEADER}</param-value>
-    </init-param>
-    <init-param>
-      <param-name>proxyTo</param-name>
-      <param-value>${PROXY_TO}</param-value>
-    </init-param>
-  </servlet>
-   
-  <servlet-mapping>
-    <servlet-name>TransparentProxy</servlet-name>
-    <url-pattern>/*</url-pattern>
-  </servlet-mapping>
-
   <security-constraint>
     <web-resource-collection>
       <web-resource-name>Permit all</web-resource-name>
