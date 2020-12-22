@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure_9_3.dtd">
+<Configure class="org.eclipse.jetty.servlet.ServletContextHandler">
+    <Set name="contextPath">/</Set>
+    <Call name="addServlet">
+        <Arg>org.eclipse.jetty.proxy.ProxyServlet$Transparent</Arg>
+        <Arg>/*</Arg>
+        <Set name="InitOrder">1</Set>
+        <Call name="setInitParameter">
+            <Arg>proxyTo</Arg>
+            <Arg><SystemProperty name="PROXY_TO" default=""/></Arg>
+        </Call>
+        <Call name="setInitParameter">
+            <Arg>hostHeader</Arg>
+            <Arg><SystemProperty name="HOST_HEADER" default=""/></Arg>
+        </Call>
+    </Call>
+</Configure>
