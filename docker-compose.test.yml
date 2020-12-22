@@ -35,11 +35,6 @@ services:
       - keycloak
       - mysql
       - protected-site
-  ubuntu:
-    image: ubuntu
-    command:
-      - sleep
-      - "9999999"
   protected-site:
     image: bitnami/chartmuseum
     ports:
