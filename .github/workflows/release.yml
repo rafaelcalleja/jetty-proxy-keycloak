@@ -34,6 +34,7 @@ jobs:
           export VERSION=$(cat VERSION)
           echo ::debug ::relase version ${VERSION}
           echo ::set-output name=tag_name::v${VERSION}
+          echo ::set-output name=release::${VERSION}
       - name: Update version
         id: updatev
         run: |
@@ -49,7 +50,7 @@ jobs:
                --header 'content-type: application/json' \
                --data '{
                    "tag_name": "${{ steps.release.outputs.tag_name }}",
-                   "body": "docker pull rafaelcalleja/jetty-proxy-keycloak:${{ steps.release.outputs.tag_name }}",
+                   "body": "docker pull rafaelcalleja/jetty-proxy-keycloak:${{ steps.release.outputs.release }}",
                    "name": "Release ${{ steps.release.outputs.tag_name }}",
                    "draft": false,
                    "prerelease": false
